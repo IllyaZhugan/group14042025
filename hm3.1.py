@@ -22,4 +22,3 @@ elif operation == "/":
 else:
     print("Помилка: невідома операція")
 
-    pass
