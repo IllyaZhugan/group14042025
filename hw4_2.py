@@ -1,4 +1,4 @@
-def even_index_sum_mult_last(numbers):
+def even_index_sum_last(numbers):
     if not numbers:
         return 0
 
@@ -9,5 +9,5 @@ def even_index_sum_mult_last(numbers):
 examples = [[0, 1, 7, 2, 4, 8], [1, 3, 5], [6], []]
 
 for ex in examples:
-    result = even_index_sum_mult_last(ex)
+    result = even_index_sum_last(ex)
     print(f"{ex} => {result}")
