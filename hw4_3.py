@@ -8,4 +8,3 @@ print("Початковий список:", numbers)
 print("Новий список:", result)
 
 pass
-
