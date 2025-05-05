@@ -21,4 +21,3 @@ for ex in examples:
     move_zeros_to_end(ex)
     print(ex)
 
-pass
