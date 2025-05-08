@@ -15,3 +15,4 @@ send_email_to_manager()
 
 fraction = get_division(10, 0)
 print(fraction)
+

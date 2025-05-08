@@ -30,3 +30,4 @@ def send_email_to_manager() -> None:
 
 def validate_not_hashable(value) -> None:
     hash(value)
+
