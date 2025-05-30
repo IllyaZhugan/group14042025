@@ -38,9 +38,8 @@ class Purchase:
         return result
 
 
-
-lemon = Item('lemon', 5, "yellow", "small")
-apple = Item('apple', 2, "red", "middle")
+lemon = Item("lemon", 5, "yellow", "small")
+apple = Item("apple", 2, "red", "middle")
 
 
 print(lemon)
@@ -65,4 +64,3 @@ cart.add_item(apple, 10)
 print(cart)
 
 assert cart.get_total() == 40
-
