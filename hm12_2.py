@@ -64,4 +64,3 @@ cart.add_item(apple, 10)
 print(cart)
 
 assert cart.get_total() == 40
-
