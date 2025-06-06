@@ -11,7 +11,7 @@ class Human:
         self.last_name = last_name
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}, {self.gender}, {self.age} років"
+        return f"{self.first_name} {self.last_name}, {self.gender}, {self.age} y.o."
 
 
 class Student(Human):
@@ -20,7 +20,13 @@ class Student(Human):
         self.record_book = record_book
 
     def __str__(self):
-        return f"{super().__str__()}, Залікова книжка: {self.record_book}"
+        return f"{super().__str__()}, Record Book: {self.record_book}"
+
+    def __eq__(self, other):
+        return isinstance(other, Student) and self.record_book == other.record_book
+
+    def __hash__(self):
+        return hash(self.record_book)
 
 
 class Group:
@@ -29,9 +35,14 @@ class Group:
         self.group = set()
 
     def add_student(self, student):
+        if not isinstance(student, Student):
+            raise TypeError("Можна додавати лише студентів")
         if len(self.group) >= 10:
             raise GroupFullException()
-        self.group.add(student)
+        if student in self.group:
+            print(f"Студент з номером залікової книжки {student.record_book} вже є у групі.")
+        else:
+            self.group.add(student)
 
     def find_student(self, last_name):
         for student in self.group:
@@ -45,21 +56,42 @@ class Group:
             self.group.remove(student)
 
     def __str__(self):
-        all_students = "\n".join(str(student) for student in self.group)
-        return f"Група: {self.number}\n{all_students}"
+        all_students = "\n".join(
+            str(student) for student in sorted(self.group, key=lambda s: s.last_name)
+        )
+        return f"Number: {self.number}\n{all_students}"
 
+
+
+st1 = Student("Male", 30, "Steve", "Jobs", "AN142")
+st2 = Student("Female", 25, "Liza", "Taylor", "AN145")
+st3 = Student("Male", 27, "Mark", "Zuckerberg", "AN146")
 
 gr = Group("PD1")
 
-
-for i in range(10):
-    s = Student("Male", 20 + i, f"Name{i}", f"Surname{i}", f"AN1{i}")
-    gr.add_student(s)
-
-try:
-    extra_student = Student("Female", 22, "Extra", "Student", "AN999")
-    gr.add_student(extra_student)
-except GroupFullException as e:
-    print(f"Виняток: {e}")
+gr.add_student(st1)
+gr.add_student(st2)
+gr.add_student(st3)
 
 print(gr)
+
+
+assert str(gr.find_student("Jobs")) == str(st1)
+assert gr.find_student("NotExist") is None
+assert isinstance(gr.find_student("Jobs"), Student) is True
+
+
+gr.delete_student("Taylor")
+print("\nПісля видалення Taylor:\n")
+print(gr)
+
+
+gr.delete_student("Taylor")
+
+
+try:
+    for i in range(10):
+        s = Student("Male", 20+i, f"Name{i}", f"Surname{i}", f"AN1{i}")
+        gr.add_student(s)
+except GroupFullException as e:
+    print(f"\nВиняток: {e}")
