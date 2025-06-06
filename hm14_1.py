@@ -49,17 +49,16 @@ class Group:
         return f"Група: {self.number}\n{all_students}"
 
 
-# ✅ Перевірка
 gr = Group("PD1")
 
-# Створимо 11 студентів
+
 for i in range(10):
     s = Student("Male", 20 + i, f"Name{i}", f"Surname{i}", f"AN1{i}")
     gr.add_student(s)
 
 try:
     extra_student = Student("Female", 22, "Extra", "Student", "AN999")
-    gr.add_student(extra_student)  # має викликати виняток
+    gr.add_student(extra_student)
 except GroupFullException as e:
     print(f"Виняток: {e}")
 
